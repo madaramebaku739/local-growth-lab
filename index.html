@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local Growth Lab | 店舗向けWeb・MEO・SNS導線支援</title>
+  <meta name="description" content="Local Growth Labは、地域店舗向けにWeb制作、Googleマップ改善、SNS導線、口コミ返信文作成を支援します。">
+  <style>
+    :root {
+      --blue: #0b3f8c;
+      --blue-dark: #072e69;
+      --sky: #eaf4ff;
+      --ink: #202a35;
+      --text: #3d4652;
+      --muted: #728091;
+      --line: #dbe3ee;
+      --bg: #f6f9fd;
+      --white: #ffffff;
+      --orange: #f08a24;
+      --shadow: 0 18px 45px rgba(8, 42, 91, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--white);
+      font-family: "Helvetica Neue", Arial, "Hiragino Sans", "Yu Gothic", sans-serif;
+      line-height: 1.8;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .topbar {
+      background: var(--blue-dark);
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 12px;
+    }
+
+    .topbar-inner,
+    .header-inner,
+    .wrap {
+      width: min(1140px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar-inner {
+      min-height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--blue-dark);
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), #1c75d8);
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 4px;
+      font-weight: 800;
+      font-size: 14px;
+      line-height: 1.35;
+      white-space: nowrap;
+    }
+
+    .button.primary {
+      color: #fff;
+      background: var(--orange);
+    }
+
+    .button.blue {
+      color: #fff;
+      background: var(--blue);
+    }
+
+    .button.outline {
+      color: var(--blue);
+      background: #fff;
+      border: 1px solid var(--blue);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(6, 37, 84, 0.94) 0%, rgba(8, 62, 136, 0.88) 46%, rgba(8, 62, 136, 0.24) 100%),
+        url("https://images.unsplash.com/photo-1556745757-8d76bdb6984b?auto=format&fit=crop&w=2200&q=82") center/cover;
+      color: #fff;
+    }
+
+    .hero-inner {
+      width: min(1140px, calc(100% - 32px));
+      min-height: 560px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 0.58fr) minmax(320px, 0.42fr);
+      gap: 40px;
+      align-items: center;
+      padding: 58px 0;
+    }
+
+    .badge {
+      width: fit-content;
+      margin: 0 0 18px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 5.6vw, 62px);
+      line-height: 1.16;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      margin: 22px 0 0;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 17px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .hero-panel {
+      padding: 26px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--ink);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel h2 {
+      margin: 0 0 14px;
+      color: var(--blue-dark);
+      font-size: 22px;
+      line-height: 1.35;
+    }
+
+    .check-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .check-list li {
+      position: relative;
+      padding: 11px 0 11px 30px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .check-list li::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 17px;
+      width: 15px;
+      height: 8px;
+      border-left: 3px solid var(--orange);
+      border-bottom: 3px solid var(--orange);
+      transform: rotate(-45deg);
+    }
+
+    section {
+      padding: 82px 0;
+    }
+
+    .section-title {
+      margin: 0 0 36px;
+      text-align: center;
+    }
+
+    .section-title .en {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    .section-title p {
+      max-width: 760px;
+      margin: 16px auto 0;
+      color: var(--muted);
+    }
+
+    .issue {
+      background: var(--bg);
+    }
+
+    .issue-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .issue-card,
+    .service-card,
+    .case-card,
+    .plan-card,
+    .faq-item {
+      border-radius: 6px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 28px rgba(8, 42, 91, 0.05);
+    }
+
+    .issue-card {
+      padding: 28px;
+      min-height: 214px;
+    }
+
+    .issue-card span {
+      display: inline-block;
+      margin-bottom: 16px;
+      color: var(--blue);
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .issue-card h3,
+    .service-card h3,
+    .case-card h3,
+    .plan-card h3,
+    .faq-item h3 {
+      margin: 0 0 10px;
+      color: var(--ink);
+      font-size: 20px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+
+    .issue-card p,
+    .service-card p,
+    .case-card p,
+    .plan-card p,
+    .faq-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .service-card {
+      overflow: hidden;
+    }
+
+    .service-card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .service-body {
+      padding: 22px;
+    }
+
+    .blue-band {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .blue-band .section-title h2,
+    .blue-band .section-title .en {
+      color: #fff;
+    }
+
+    .blue-band .section-title p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature {
+      padding: 28px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: 14px;
+      color: #fff;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .feature p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 14px;
+    }
+
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .case-card {
+      overflow: hidden;
+    }
+
+    .case-label {
+      padding: 9px 14px;
+      color: #fff;
+      background: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .case-body {
+      padding: 22px;
+    }
+
+    .flow {
+      background: var(--bg);
+    }
+
+    .flow-list {
+      counter-reset: step;
+      display: grid;
+      gap: 14px;
+    }
+
+    .flow-item {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 22px;
+      align-items: center;
+      padding: 24px;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .flow-num {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--blue);
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .flow-num::after {
+      content: counter(step, decimal-leading-zero);
+    }
+
+    .flow-item h3 {
+      margin: 0 0 4px;
+      color: var(--ink);
+      font-size: 20px;
+    }
+
+    .flow-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .plan-card {
+      padding: 28px;
+    }
+
+    .plan-card.featured {
+      border: 2px solid var(--orange);
+      transform: translateY(-6px);
+    }
+
+    .price {
+      margin: 0 0 18px;
+      color: var(--blue);
+      font-size: 34px;
+      line-height: 1.1;
+      font-weight: 900;
+    }
+
+    .price small {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .plan-card ul {
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .plan-card li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .faq-item {
+      padding: 24px;
+    }
+
+    .contact {
+      background:
+        linear-gradient(90deg, rgba(7, 46, 105, 0.96), rgba(11, 63, 140, 0.88)),
+        url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2200&q=82") center/cover;
+      color: #fff;
+    }
+
+    .contact-box {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 32px;
+      align-items: center;
+      padding: 42px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .contact-box h2 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.3;
+      color: #fff;
+    }
+
+    .contact-box p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .mail-card {
+      padding: 24px;
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      text-align: center;
+    }
+
+    .mail-card span {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .mail-card a {
+      display: block;
+      color: var(--blue);
+      font-size: 20px;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      padding: 34px 0;
+      background: var(--blue-dark);
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .nav,
+      .topbar {
+        display: none;
+      }
+
+      .header-inner {
+        min-height: 68px;
+      }
+
+      .hero-inner,
+      .contact-box {
+        grid-template-columns: 1fr;
+      }
+
+      .service-grid,
+      .feature-grid,
+      .case-grid,
+      .plans {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .header-actions .outline {
+        display: none;
+      }
+
+      .header-actions .button {
+        min-height: 40px;
+        padding: 9px 12px;
+        font-size: 13px;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      .logo-mark {
+        width: 36px;
+        height: 36px;
+      }
+
+      .hero-inner {
+        min-height: 560px;
+        padding: 46px 0;
+      }
+
+      section {
+        padding: 62px 0;
+      }
+
+      .issue-grid,
+      .service-grid,
+      .feature-grid,
+      .case-grid,
+      .plans,
+      .faq-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-item {
+        grid-template-columns: 1fr;
+      }
+
+      .plan-card.featured {
+        transform: none;
+      }
+
+      .contact-box {
+        padding: 28px 20px;
+      }
+
+      .footer-inner {
+        display: grid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span>地域店舗向けWeb制作・Googleマップ改善・SNS導線支援</span>
+      <span>初回相談はメールで受付中</span>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="#top" aria-label="Local Growth Lab">
+        <span class="logo-mark">LG</span>
+        <span>Local Growth Lab</span>
+      </a>
+      <nav class="nav" aria-label="メインナビゲーション">
+        <a href="#problem">課題</a>
+        <a href="#service">サービス</a>
+        <a href="#feature">特徴</a>
+        <a href="#flow">流れ</a>
+        <a href="#price">料金</a>
+      </nav>
+      <div class="header-actions">
+        <a class="button outline" href="#contact">資料相談</a>
+        <a class="button blue" href="#contact">お問い合わせ</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <p class="badge">店舗の集客導線を、必要なところから改善</p>
+          <h1>Web・地図・SNSを整えて、来店前の不安を減らす。</h1>
+          <p class="hero-copy">Local Growth Labは、地域店舗向けにホームページ制作、Googleマップ改善、口コミ返信、SNS導線づくりを支援します。まずは小さなサンプルや改善案を確認してから進められます。</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#contact">無料で相談する</a>
+            <a class="button outline" href="#service">サービスを見る</a>
+          </div>
+        </div>
+        <aside class="hero-panel" aria-label="対応内容">
+          <h2>このような整備に対応しています</h2>
+          <ul class="check-list">
+            <li>スマホで見やすい1ページサイト制作</li>
+            <li>Googleマップ掲載情報の見直し</li>
+            <li>口コミ返信文・問い合わせ返信文の作成</li>
+            <li>Instagramプロフィール・投稿案の整理</li>
+            <li>店舗ごとのサンプルページ作成</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="issue" id="problem">
+      <div class="wrap">
+        <div class="section-title">
+          <span class="en">Problem</span>
+          <h2>集客の前に、情報の見え方で損をしていませんか？</h2>
+          <p>広告費をかける前に、お客様が来店前に確認する場所を整えるだけで、問い合わせや来店のハードルを下げられる場合があります。</p>
+        </div>
+        <div class="issue-grid">
+          <article class="issue-card">
+            <span>01</span>
+            <h3>営業時間や場所が分かりにくい</h3>
+            <p>Googleマップ、SNS、既存ページの情報が分散していると、来店前の確認で離脱されやすくなります。</p>
+          </article>
+          <article class="issue-card">
+            <span>02</span>
+            <h3>SNSはあるが予約導線が弱い</h3>
+            <p>投稿は見られていても、予約・問い合わせ・メニュー確認までの流れが見えにくいケースがあります。</p>
+          </article>
+          <article class="issue-card">
+            <span>03</span>
+            <h3>口コミや問い合わせ対応が後回し</h3>
+            <p>返信が止まっていると、営業中かどうか、対応してもらえるかの印象に影響することがあります。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="service">
+      <div class="wrap">
+        <div class="section-title">
+          <span class="en">Service</span>
+          <h2>店舗に必要な制作・改善をまとめて支援</h2>
+          <p>ホームページ単体ではなく、検索、Googleマップ、SNS、問い合わせ返信まで含めて、実際の来店導線に沿って整えます。</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card">
+            <img alt="ノートパソコンでWebページを確認する様子" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80">
+            <div class="service-body">
+              <h3>Web制作</h3>
+              <p>スマホで見やすい1ページサイト、キャンペーンページ、店舗紹介ページを制作します。</p>
+            </div>
+          </article>
+          <article class="service-card">
+            <img alt="スマートフォンで地図を確認する様子" src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=900&q=80">
+            <div class="service-body">
+              <h3>Googleマップ改善</h3>
+              <p>店舗情報、カテゴリ、写真、口コミ返信、投稿内容の改善案を作成します。</p>
+            </div>
+          </article>
+          <article class="service-card">
+            <img alt="スマートフォンでSNS投稿を確認する様子" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80">
+            <div class="service-body">
+              <h3>SNS導線設計</h3>
+              <p>Instagramプロフィール、投稿案、LINEや予約ページへの導線を整理します。</p>
+            </div>
+          </article>
+          <article class="service-card">
+            <img alt="カスタマー対応のメッセージを確認する様子" src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=900&q=80">
+            <div class="service-body">
+              <h3>返信文作成</h3>
+              <p>口コミ返信、予約返信、問い合わせ返信など、日々使える文章テンプレートを作成します。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="blue-band" id="feature">
+      <div class="wrap">
+        <div class="section-title">
+          <span class="en">Feature</span>
+          <h2>Local Growth Labの特徴</h2>
+          <p>大きな広告運用ではなく、店舗ごとに必要な情報整理と小さな制作から始めます。</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <strong>提案前にサンプルを確認</strong>
+            <p>完成後のイメージが分かるよう、仮文章・仮写真で確認用ページや改善案を作成できます。</p>
+          </article>
+          <article class="feature">
+            <strong>店舗の業種に合わせて制作</strong>
+            <p>飲食、美容、整体、ジム、士業など、来店・予約の流れに合わせて必要な導線を整理します。</p>
+          </article>
+          <article class="feature">
+            <strong>メール中心で進行可能</strong>
+            <p>初回相談、見積り、素材確認はメールで進められます。正式取引時に必要情報をご案内します。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-title">
+          <span class="en">Example</span>
+          <h2>よくあるご相談例</h2>
+          <p>実際の制作前に、まずは相談内容に合わせて改善案を作成します。</p>
+        </div>
+        <div class="case-grid">
+          <article class="case-card">
+            <div class="case-label">飲食店</div>
+            <div class="case-body">
+              <h3>メニューと営業時間を分かりやすくしたい</h3>
+              <p>1ページサイト、Googleマップ情報、Instagramリンクをまとめて来店前の確認を短くします。</p>
+            </div>
+          </article>
+          <article class="case-card">
+            <div class="case-label">美容・サロン</div>
+            <div class="case-body">
+              <h3>予約までの導線を整えたい</h3>
+              <p>SNSプロフィール、予約ページ、メニュー紹介を整理し、初めての方にも分かる導線を作ります。</p>
+            </div>
+          </article>
+          <article class="case-card">
+            <div class="case-label">整体・ジム</div>
+            <div class="case-body">
+              <h3>口コミや問い合わせ返信を整えたい</h3>
+              <p>口コミ返信文、初回問い合わせ返信、再来店案内などのテンプレートを作成します。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow" id="flow">
+      <div class="wrap">
+        <div class="section-title">
+          <span class="en">Flow</span>
+          <h2>ご相談から公開までの流れ</h2>
+          <p>まずは状況を確認し、必要な範囲だけ小さく進めます。</p>
+        </div>
+        <div class="flow-list">
+          <article class="flow-item">
+            <div class="flow-num" aria-hidden="true"></div>
+            <div>
+              <h3>初回相談</h3>
+              <p>店舗名、業種、現在のWeb・SNS状況、困っていることをメールでお送りください。</p>
+            </div>
+          </article>
+          <article class="flow-item">
+            <div class="flow-num" aria-hidden="true"></div>
+            <div>
+              <h3>簡易診断・サンプル作成</h3>
+              <p>Googleマップ、SNS、既存ページを確認し、必要に応じてサンプルページや改善案を作成します。</p>
+            </div>
+          </article>
+          <article class="flow-item">
+            <div class="flow-num" aria-hidden="true"></div>
+            <div>
+              <h3>見積り・正式申込</h3>
+              <p>制作範囲、納期、修正回数、費用を確認し、正式なお申込み後に制作へ進みます。</p>
+            </div>
+          </article>
+          <article class="flow-item">
+            <div class="flow-num" aria-hidden="true"></div>
+            <div>
+              <h3>制作・公開・運用</h3>
+              <p>写真や正式情報に差し替え、公開後は必要に応じて更新や返信文作成を継続します。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="price">
+      <div class="wrap">
+        <div class="section-title">
+          <span class="en">Price</span>
+          <h2>料金の目安</h2>
+          <p>内容により変動します。正式なお見積りは、制作範囲を確認したうえでお送りします。</p>
+        </div>
+        <div class="plans">
+          <article class="plan-card">
+            <h3>ライト制作</h3>
+            <p class="price">33,000円〜</p>
+            <p>まず店舗情報を整理したい方向け。</p>
+            <ul>
+              <li>1ページ構成</li>
+              <li>スマホ対応</li>
+              <li>SNS・地図リンク設置</li>
+            </ul>
+          </article>
+          <article class="plan-card featured">
+            <h3>店舗導線セット</h3>
+            <p class="price">55,000円〜 <small>目安</small></p>
+            <p>Web、地図、口コミ返信までまとめて整えたい方向け。</p>
+            <ul>
+              <li>サンプルページ制作</li>
+              <li>Googleマップ改善案</li>
+              <li>口コミ返信文案</li>
+              <li>問い合わせ導線整理</li>
+            </ul>
+          </article>
+          <article class="plan-card">
+            <h3>月次サポート</h3>
+            <p class="price">5,500円〜 <small>月額</small></p>
+            <p>公開後の軽い更新や文章作成を続けたい方向け。</p>
+            <ul>
+              <li>軽微な更新</li>
+              <li>投稿・返信文案</li>
+              <li>改善メモ作成</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="issue">
+      <div class="wrap">
+        <div class="section-title">
+          <span class="en">FAQ</span>
+          <h2>よくあるご質問</h2>
+        </div>
+        <div class="faq-grid">
+          <article class="faq-item">
+            <h3>サンプルを見るだけでも大丈夫ですか？</h3>
+            <p>大丈夫です。正式な制作は、内容と費用を確認してから進めます。</p>
+          </article>
+          <article class="faq-item">
+            <h3>写真や文章が揃っていません。</h3>
+            <p>仮文章で構成を作り、あとから正式情報や写真に差し替えできます。</p>
+          </article>
+          <article class="faq-item">
+            <h3>電話ではなくメールで進められますか？</h3>
+            <p>初回相談、見積り、素材確認はメール中心で対応できます。</p>
+          </article>
+          <article class="faq-item">
+            <h3>事業者情報は確認できますか？</h3>
+            <p>正式なお申込みや請求の段階で、必要な請求者情報・振込先情報を記載します。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="wrap">
+        <div class="contact-box">
+          <div>
+            <h2>店舗名と相談内容だけで、お問い合わせください。</h2>
+            <p>現在のWeb・SNS・Googleマップの状態を確認し、必要な整備内容をご案内します。</p>
+          </div>
+          <div class="mail-card">
+            <span>メールで相談</span>
+            <a href="mailto:contact@localgrowthlab.jp">contact@localgrowthlab.jp</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>Local Growth Lab</span>
+      <span>店舗向けWeb制作・Googleマップ改善・SNS導線支援</span>
+    </div>
+  </footer>
+</body>
+</html>
