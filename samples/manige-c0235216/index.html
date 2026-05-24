@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manige（マニージュ） サンプルページ</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif; color: #171717; background: #fff; }
+    header { border-bottom: 1px solid #e8e8e8; background: #fff; position: sticky; top: 0; z-index: 2; }
+    .bar { max-width: 1120px; margin: 0 auto; padding: 18px 22px; display: flex; justify-content: space-between; gap: 18px; align-items: center; }
+    .brand { font-weight: 800; letter-spacing: .02em; }
+    nav { display: flex; gap: 20px; font-size: 14px; color: #555; }
+    .hero { background: linear-gradient(90deg, #eef3f8, #fff); }
+    .hero-inner { max-width: 1120px; margin: 0 auto; padding: 76px 22px 64px; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(280px, .9fr); gap: 48px; align-items: center; }
+    .label { display: inline-block; padding: 8px 12px; background: #fff; border: 1px solid #e1e1e1; font-size: 13px; margin-bottom: 22px; }
+    h1 { font-size: clamp(38px, 6vw, 72px); line-height: 1.05; margin: 0 0 22px; letter-spacing: 0; }
+    .lead { font-size: 18px; line-height: 1.9; max-width: 680px; margin: 0 0 30px; }
+    .cta { display: inline-block; background: #17406d; color: #fff; text-decoration: none; padding: 14px 22px; font-weight: 700; }
+    .visual { min-height: 360px; background: #17406d; color: #fff; padding: 32px; display: flex; flex-direction: column; justify-content: flex-end; }
+    .visual strong { font-size: 34px; line-height: 1.2; }
+    main { max-width: 1120px; margin: 0 auto; padding: 56px 22px 80px; }
+    .intro { display: grid; grid-template-columns: .8fr 1.2fr; gap: 40px; border-bottom: 1px solid #e8e8e8; padding-bottom: 48px; }
+    h2 { font-size: 28px; margin: 0 0 18px; }
+    .intro p { margin: 0; line-height: 1.9; }
+    .cards { list-style: none; padding: 0; margin: 46px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .cards li { border: 1px solid #e7e7e7; padding: 24px; min-height: 180px; }
+    .cards span { color: #17406d; font-weight: 800; font-size: 13px; }
+    .cards strong { display: block; margin: 18px 0 10px; font-size: 18px; }
+    .cards p { margin: 0; color: #555; line-height: 1.7; font-size: 14px; }
+    .note { margin-top: 48px; padding: 22px; background: #eef3f8; font-size: 14px; color: #555; line-height: 1.8; }
+    @media (max-width: 780px) { nav { display: none; } .hero-inner, .intro { grid-template-columns: 1fr; } .visual { min-height: 240px; } .cards { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header><div class="bar"><div class="brand">Manige（マニージュ）</div><nav><span>メニュー</span><span>初めての方へ</span><span>アクセス</span></nav></div></header>
+  <section class="hero"><div class="hero-inner"><div><div class="label">名古屋市千種区 / ネイルサロン サンプル</div><h1>Manige（マニージュ）</h1><p class="lead">初めての方が必要な情報を1ページで確認</p><a class="cta" href="#sample">見本ページを見る</a></div><div class="visual"><strong>Manige（マニージュ）<br>Web Sample</strong></div></div></section>
+  <main id="sample"><section class="intro"><h2>この見本で整理すること</h2><p>サロンの特徴・料金・予約方法をブログから探す形になっているため、初めての方に向けて情報を1ページに整理する余地があると感じました。</p></section><ol class="cards"><li><span>01</span><strong>サービス</strong><p>来店前に確認したい情報を上から順に配置します。</p></li><li><span>02</span><strong>初めての方へ</strong><p>初めての方が不安なく問い合わせできる説明を置きます。</p></li><li><span>03</span><strong>店舗情報</strong><p>写真や実績を整理し、雰囲気が伝わる構成にします。</p></li><li><span>04</span><strong>問い合わせ</strong><p>営業時間、場所、予約方法を見つけやすくします。</p></li></ol><div class="note">これはLocal Growth Labが作成した提案用の仮サンプルです。写真、文章、料金、営業時間は公開前に正式情報へ差し替えます。</div></main>
+</body>
+</html>
